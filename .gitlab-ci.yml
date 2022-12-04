@@ -1,0 +1,48 @@
+image: golang:latest
+
+stages:
+- lint
+- test
+- pre
+- deploy
+
+before_script:
+  - go get github.com/tools/godep
+  - cp -r . /
+
+lint: 
+  stage: lint
+  script:
+  -  go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.49.0
+  -  golangci-lint run --config=.golangci.pipeline.yaml ./...
+
+test:
+  stage: test
+  script:
+    - go test ./...
+
+build:
+  stage: lint
+  script: 
+    - go build -v ./cmd/dormitory_room_bot/main.go
+
+prod:
+  stage: deploy
+  script:
+    - apk add ruby-dev
+    - apk add git
+    - apk add curl
+    - gem install dpl
+    - dpl --provider=heroku --app=dormitory-room-bot --api_key=e1bc29df-775d-4075-8136-a7bab1db8848
+  when: manual
+  image: golang:alpine
+  environment: production
+
+migrations:
+  stage: pre
+  script:
+    - go install github.com/pressly/goose/v3/cmd/goose@latest
+    - make goose-up
+  when: manual
+  image: golang:alpine
+  environment: production

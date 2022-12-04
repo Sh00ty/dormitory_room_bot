@@ -1,0 +1,84 @@
+stg:
+  - name: POSTGRES_DB_NAME
+    value: "postgres"
+  - name: "POSTGRES_DB_USER"
+    value: "postgres"
+  - name: POSTGRES_DB_PASSWORD
+    value: "postgres"
+  - name: POSTGRES_DB_HOST
+    value: "host.docker.internal"
+  - name: POSTGRES_DB_PORT
+    value: "5432"
+  
+  - name: BOT_TOKEN
+    value: ""
+  
+  - name: TASK_SHEDULER_TIMEOUT
+    value: "5"
+  - name: WORKER_POOL_BUFFER_SIZE
+    value: "0"
+  - name: "WORKER_POOL_MAX_WORKER_COUNT"
+    value: "2"
+
+  - name: "MONGO_DB_ADDR"
+    value: "mongodb://host.docker.internal:27017"
+  - name: "MONGO_DB_USER"
+    value: "mongo"
+  - name: "MONGO_DB_NAME"
+    value: "lists"
+  - name: "MONGO_DB_PASSWORD"
+    value: ""
+  
+  - name: "REDIS_ADDR"
+    value: "host.docker.internal:6379"
+  - name: "REDIS_PASSWORD"
+    value: ""
+  - name: "RECALLER_SEARCH_TIMEOUT"
+    value: "2"
+  - name: "RECALLER_BASE_TIMEOUT"
+    value: "100"
+  - name: "RECALL_LIMIT"
+    value: "4"
+
+
+prod:
+  - name: POSTGRES_DB_NAME
+    value: ""
+  - name: "POSTGRES_DB_USER"
+    value: ""
+  - name: POSTGRES_DB_PASSWORD
+    value: ""
+  - name: POSTGRES_DB_HOST
+    value: ""
+  - name: POSTGRES_DB_PORT
+    value: ""
+  
+  - name: BOT_TOKEN
+    value: ""
+
+  - name: TASK_SHEDULER_TIMEOUT
+    value: "5"
+  - name: WORKER_POOL_BUFFER_SIZE
+    value: "250"
+  - name: "WORKER_POOL_MAX_WORKER_COUNT"
+    value: "30"
+
+  - name: "MONGO_DB_ADDR"
+    value: ""
+  - name: "MONGO_DB_USER"
+    value: ""
+  - name: "MONGO_DB_NAME"
+    value: ""
+  - name: "MONGO_DB_PASSWORD"
+    value: ""
+
+  - name: "REDIS_ADDR"
+    value: ""
+  - name: "REDIS_PASSWORD"
+    value: ""
+  - name: "RECALLER_SEARCH_TIMEOUT"
+    value: "1"
+  - name: "RECALLER_BASE_TIMEOUT"
+    value: "100"
+  - name: "RECALL_LIMIT"
+    value: "7"

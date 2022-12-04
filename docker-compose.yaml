@@ -1,0 +1,66 @@
+version: '3.1'
+
+services: 
+  dormitory_room_bot:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    container_name: dormitory_room_bot
+    #network_mode: host
+    restart: always
+    ports:
+      - '9000:9000'
+      - '8080:8080'
+  prometheus:
+    image: prom/prometheus:latest
+    #network_mode: host
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    restart: always
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+  postgres:
+    image: postgres:latest
+    environment:
+      DB_NAME: ""
+      DB_HOST: "localhost"
+      POSTGRES_PASSWORD: ""
+      USER_NAME: ""
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  mongodb:
+    image: 'mongo'
+    environment:
+      - MONGO_INITDB_DATABASE="drb-lists"
+      #- MONGO_INITDB_ROOT_PASSWORD="mongo-qwerty"
+      #- MONGO_INITDB_ROOT_USERNAME="mongo"
+    ports:
+      - '27017-27019:27017-27019'
+    volumes:
+      - mongo-data:/data/db
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+
+volumes:
+  grafana-storage:
+  prometheus_data:
+  postgres-data:
+  mongo-data:

@@ -1,0 +1,103 @@
+run:
+  concurrency: 8
+  timeout: 10m
+  issues-exit-code: 1
+  tests: true
+  skip-dirs:
+    - bin
+    - vendor
+    - var
+    - tmp
+    - .cache
+  skip-files:
+    - \.pb\.go$
+    - \.pb\.gw\.go$
+    - \.pb\.scratch\.go$
+    - \.pb\.goclay\.go$
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+
+linters-settings:
+  govet:
+    check-shadowing: true
+  dupl:
+    threshold: 100
+  goconst:
+    min-len:         2
+    min-occurrences: 2
+  revive:
+    rules:
+      - name: package-comments
+        disabled: true
+      - name: indent-error-flow
+        disabled: false
+      - name: receiver-naming
+        disabled: false
+      - name: range
+        disabled: false
+      - name: var-naming
+        disabled: false
+      - name: increment-decrement
+        disabled: false
+      - name: if-return
+        disabled: false
+      - name: exported
+        disabled: true
+      - name: error-naming
+        disabled: false
+      - name: context-keys-type
+        disabled: false
+      - name: time-equal	
+        disabled: false
+      - name: time-naming	
+        disabled: false
+      - name: var-declaration	
+        disabled: false
+      - name: unexported-return	
+        disabled: false
+      - name: errorf	
+        disabled: false
+      - name: blank-imports	
+        disabled: false
+      - name: context-as-argument
+        disabled: false
+      - name: dot-imports	
+        disabled: false
+      - name: error-return	
+        disabled: false
+      - name: error-strings
+        disabled: false
+    
+ 
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - goconst
+    - goimports
+    - gosec
+    - govet
+    - ineffassign
+    - megacheck 
+    - revive
+    - typecheck
+    - unused 
+
+issues:
+  exclude-use-default: false
+  exclude:
+    # _ instead of err checks
+    - G104
+    # for "public interface + private struct implementation" cases only!
+    - exported func .* returns unexported type .*, which can be annoying to use
+    # can be removed in the development phase
+    # - (comment on exported (method|function|type|const)|should have( a package)? comment|comment should be of the form)
+    # not for the active development - can be removed in the stable phase
+    - should have a package comment, unless it's in another file for this package
+    - don't use an underscore in package name
+    # EXC0001 errcheck: Almost all programs ignore errors on these functions and in most cases it's ok
+    - Error return value of .((os\.)?std(out|err)\..*|.*Close|.*Flush|os\.Remove(All)?|.*print(f|ln)?|os\.(Un)?Setenv). is not checked
+    - should check returned error before deferring
