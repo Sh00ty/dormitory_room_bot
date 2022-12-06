@@ -45,11 +45,6 @@ func CreateWorkerPool[resType any](bufferSize uint64, concurrensy uint64, worker
 
 	for i := uint64(0); i < concurrensy; i++ {
 		wp.workers = append(wp.workers, make(chan Job[resType], bufferSize))
-		wp.closers = make(chan struct{})
-	}
-
-	for i := uint64(0); i < concurrensy; i++ {
-
 		go func(k uint64) {
 			defer func() {
 				if err := recover(); err != nil {
