@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Sh00ty/dormitory_room_bot/internal/logger"
+	"gitlab.com/Sh00ty/dormitory_room_bot/pkg/logger"
 	"gopkg.in/yaml.v2"
 )
 
@@ -25,22 +25,13 @@ const (
 	PgHostConfigKey                  configKey = "POSTGRES_DB_HOST"
 	PgPortConfigKey                  configKey = "POSTGRES_DB_PORT"
 	TaskSheduleTimeConfigKey         configKey = "TASK_SHEDULER_TIMEOUT"
-	TokenBotConfigKey                configKey = "BOT_TOKEN"
 	WokerPoolBufferSizeConfigKey     configKey = "WORKER_POOL_BUFFER_SIZE"
 	WokerPoolMaxWorkerCountConfigKey configKey = "WORKER_POOL_MAX_WORKER_COUNT"
 	MgHostConfigKey                  configKey = "MONGO_DB_ADDR"
 	MgUserConfigKey                  configKey = "MONGO_DB_USER"
 	MgDbNameConfigKey                configKey = "MONGO_DB_NAME"
-	RedisHostConfigKey               configKey = "REDIS_ADDR"
-	RecallerSearchTimeoutConfigKey   configKey = "RECALLER_SEARCH_TIMEOUT"
 	RecallerBaseTimeoutConfigKey     configKey = "RECALLER_BASE_TIMEOUT"
 	RecallLimitConfigKey             configKey = "RECALL_LIMIT"
-	//nolint:gosec
-	PgPasswordConfigKey configKey = "POSTGRES_DB_PASSWORD"
-	//nolint:gosec
-	MgPasswordConfigKey configKey = "MONGO_DB_PASSWORD"
-	//nolint:gosec
-	RedisPasswordConfigKey configKey = "REDIS_PASSWORD"
 )
 
 var configMap map[configKey]configValue

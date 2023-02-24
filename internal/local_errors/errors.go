@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	valueObjects "github.com/Sh00ty/dormitory_room_bot/pkg/value_objects"
+	valueObjects "gitlab.com/Sh00ty/dormitory_room_bot/internal/value_objects"
 )
 
 type localerr error
@@ -35,6 +35,8 @@ var (
 	ErrNotSubTask localerr = errors.New("task isn't sub/unsub")
 
 	ErrDidntSubscribed localerr = errors.New("you didn't subscribe to this task")
+
+	ErrNoTransactions localerr = errors.New("there is no transactions")
 )
 
 type UpdateCreditError struct {

@@ -6,6 +6,11 @@ services:
       context: ./
       dockerfile: ./docker/Dockerfile
     container_name: dormitory_room_bot
+    environment:
+      dormitory_env: "${env}"
+      bot_token: "${tg_token}"
+      mongo_pass: "${mongo_pass}"
+      pg_pass: "${pg_pass}"
     #network_mode: host
     restart: always
     ports:
@@ -35,10 +40,10 @@ services:
   postgres:
     image: postgres:latest
     environment:
-      DB_NAME: ""
+      DB_NAME: "postgres"
       DB_HOST: "localhost"
-      POSTGRES_PASSWORD: ""
-      USER_NAME: ""
+      POSTGRES_PASSWORD: "${pg_pass}"
+      USER_NAME: "postgres"
     ports:
       - "5432:5432"
     volumes:
@@ -47,17 +52,12 @@ services:
     image: 'mongo'
     environment:
       - MONGO_INITDB_DATABASE="drb-lists"
-      #- MONGO_INITDB_ROOT_PASSWORD="mongo-qwerty"
+      #- MONGO_INITDB_ROOT_PASSWORD="${mongo_pass}"
       #- MONGO_INITDB_ROOT_USERNAME="mongo"
     ports:
       - '27017-27019:27017-27019'
     volumes:
       - mongo-data:/data/db
-  redis:
-    image: redis:latest
-    restart: always
-    ports:
-      - '6379:6379'
 
 volumes:
   grafana-storage:

@@ -12,9 +12,8 @@ run:
 
 PHONY: goose-up
 goose-up: 
-	goose -dir ./migrations postgres "user= dbname= password= host= port=" up
+	goose -dir ./migrations postgres "user=postgres dbname=postgres password=qwerty host=127.0.0.1  port=5432" up
 
 PHONY: goose-reset
 goose-reset:
-	goose -dir ./migrations postgres "user= dbname= password= host= port=" reset
-
+	goose -dir ./migrations postgres "user=postgres dbname=postgres password=qwerty host=127.0.0.1 port=5432" reset
